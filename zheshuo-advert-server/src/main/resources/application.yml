@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://www.zhanglong.org.cn:3306/jta-db
+    username: root
+    password: zl12345
+
+
+advert:
+  swagger:
+    title: "广告机api"
+    version: 1.0
+    description: "广告机api"
+    enable: true
