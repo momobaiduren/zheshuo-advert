@@ -8,7 +8,7 @@ zhanglong
 
 只需要在controller（表现层）->service（业务层）->repository（业务数据层）->mapper（数据映射层）
 
-controller（表现层）（自定义request接收，response响应）
-service（业务层）业务处理（request,response数据与表实体之间的转换，业务处理）
-repository（业务数据层）业务数据处理
-mapper（数据映射层）自定义sqlmapper映射
+* controller（表现层）（自定义request接收，response响应）
+* service（业务层）业务处理（request,response数据与表实体之间的转换，业务处理）
+* repository（业务数据层）业务数据处理
+* mapper（数据映射层）自定义sqlmapper映射
