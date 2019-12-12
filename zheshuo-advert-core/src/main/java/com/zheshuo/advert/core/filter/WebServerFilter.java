@@ -3,6 +3,7 @@ package com.zheshuo.advert.core.filter;
 import com.alibaba.fastjson.JSON;
 import com.zheshuo.advert.core.cache.AdminLoginCache;
 import com.zheshuo.advert.core.cache.AdminLoginCache.SecurityUser;
+import com.zheshuo.advert.core.cache.UserContext;
 import com.zheshuo.advert.core.common.OutputDTO;
 import com.zheshuo.advert.core.utils.WebUtils;
 import java.io.IOException;
@@ -83,17 +84,12 @@ public class WebServerFilter implements Filter {
 
     private void handlerToken( HttpServletRequest request, HttpServletResponse response ) {
         final String token = request.getHeader(LOGIN_TOKEN);
-//        adminLoginCache.checkToken(token)
-//        if () {
+        if (StringUtils.isNotBlank(token)){
+            UserContext.save(token, adminLoginCache);
             WebUtils.bindContext(request, response);
-//        }
+        }
     }
-//    public SecurityUser checkToken( String token ) {
-//        if(StringUtils.isBlank(token)) {
-//            return null;
-//        }
-//        return adminLoginPool.get();
-//    }
+
     private void setupResponseHeader( HttpServletRequest request, HttpServletResponse response ) {
         String origin = request.getHeader("Origin");
         if (origin != null) {
