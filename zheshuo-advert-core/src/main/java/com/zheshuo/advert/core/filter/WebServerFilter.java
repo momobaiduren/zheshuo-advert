@@ -74,6 +74,7 @@ public class WebServerFilter implements Filter {
         if (isFilter(servletPath)) {
             setupResponseHeader(request, response);
             handlerToken(request, response);
+        }else{
             filterChain.doFilter(request, response);
         }
     }
@@ -82,11 +83,17 @@ public class WebServerFilter implements Filter {
     public void destroy() {
     }
 
-    private void handlerToken( HttpServletRequest request, HttpServletResponse response ) {
+    private void handlerToken( HttpServletRequest request, HttpServletResponse response ) throws IOException {
         final String token = request.getHeader(LOGIN_TOKEN);
         if (StringUtils.isNotBlank(token)){
             UserContext.save(token, adminLoginCache);
             WebUtils.bindContext(request, response);
+        }else {
+            response.reset();
+            response.setContentType("");
+            try ( PrintWriter writer = response.getWriter() ){
+                writer.write(JSON.toJSONString(new OutputDTO<>().fail("登陆超时，请重新登陆")));
+            }
         }
     }
 
