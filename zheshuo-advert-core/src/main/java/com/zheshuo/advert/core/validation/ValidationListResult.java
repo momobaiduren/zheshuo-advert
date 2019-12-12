@@ -5,8 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import static java.util.stream.Collectors.joining;
 
 /**
  * @author zhanglong
@@ -15,24 +20,22 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class ValidationListResult<T> extends ValidationResult{
+public class ValidationListResult<T> extends ValidationResult {
+
     private List<T> successData = new ArrayList<>();
 
     private Map<T, Map<String, String>> errorData = new HashMap<>();
 
-    @Override
-    public void isErrorThrowExp() {
-        if(!errorData.isEmpty()) {
-            for (Entry<T, Map<String, String>> entry : errorData.entrySet()) {
-                T key = entry.getKey();
-                Map<String, String> value = entry.getValue();
-                throw new RuntimeException(key.toString() + ":" + value.toString());
-            }
-        }
+    public List<T> get() {
+        return successData;
     }
 
-    public List<T> get(){
-        return successData;
+    @Override
+    public <E extends Exception> void throwErrorExp(Function<String, E> function) throws Exception {
+        if (!errorData.isEmpty()){
+            String errmsg = errorData.get(0).entrySet().stream().map(Map.Entry::getValue).collect(joining(";"));
+            throw function.apply(errmsg);
+        }
     }
 }
 
