@@ -4,12 +4,12 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.zheshuo.advert.core.easyexcel.ExcelModel;
-
 import lombok.Data;
+
 /**
  * (OrderInfo)
  * @author ZhangLong
- * @since 2019-12-12 10:04:15
+ * @since 2019-12-12 10:54:58
  */
 @Data
 @TableName("order_info")

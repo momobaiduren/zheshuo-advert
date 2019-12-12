@@ -6,7 +6,7 @@ import com.zheshuo.advert.entity.OrderInfo;
 /**
  * (OrderInfo)
  * @author ZhangLong
- * @since 2019-12-12 09:47:25
+ * @since 2019-12-12 10:54:59
  */
 public interface OrderInfoMapper extends BaseMapper<OrderInfo> {
 

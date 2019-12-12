@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 /**
  * (OrderInfo)
  * @author ZhangLong
- * @since 2019-12-12 09:47:25
+ * @since 2019-12-12 10:55:00
  */
 @Repository
 public class OrderInfoRepositoryImpl extends ServiceImpl<OrderInfoMapper, OrderInfo> implements OrderInfoRepository {
