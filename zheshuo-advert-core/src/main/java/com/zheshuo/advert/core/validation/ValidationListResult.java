@@ -33,6 +33,7 @@ public class ValidationListResult<T> extends ValidationResult {
     @Override
     public <E extends Exception> void throwErrorExp(Function<String, E> function) throws Exception {
         if (!errorData.isEmpty()){
+            isThrowErrorExp = true;
             String errmsg = errorData.get(0).entrySet().stream().map(Map.Entry::getValue).collect(joining(";"));
             throw function.apply(errmsg);
         }
