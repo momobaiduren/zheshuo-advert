@@ -4,7 +4,11 @@ spring:
     url: jdbc:mysql://www.zhanglong.org.cn:3306/jta-db
     username: root
     password: zl12345
-
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 200MB
+      max-request-size: 200MB
 
 advert:
   swagger:
