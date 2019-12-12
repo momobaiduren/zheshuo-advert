@@ -40,7 +40,7 @@ public class OutputDTO<T> extends BaseDTO {
 
     public OutputDTO<T> fail(String msg){
         this.code = FAIL;
-        this.msg = FAIL;
+        this.msg = msg;
         return this;
     }
 }
