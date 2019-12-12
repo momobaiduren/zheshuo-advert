@@ -83,17 +83,17 @@ public class WebServerFilter implements Filter {
 
     private void handlerToken( HttpServletRequest request, HttpServletResponse response ) {
         final String token = request.getHeader(LOGIN_TOKEN);
-        adminLoginCache.checkToken(token)
-        if () {
+//        adminLoginCache.checkToken(token)
+//        if () {
             WebUtils.bindContext(request, response);
-        }
+//        }
     }
-    public SecurityUser checkToken( String token ) {
-        if(StringUtils.isBlank(token)) {
-            return null;
-        }
-        return adminLoginPool.get();
-    }
+//    public SecurityUser checkToken( String token ) {
+//        if(StringUtils.isBlank(token)) {
+//            return null;
+//        }
+//        return adminLoginPool.get();
+//    }
     private void setupResponseHeader( HttpServletRequest request, HttpServletResponse response ) {
         String origin = request.getHeader("Origin");
         if (origin != null) {

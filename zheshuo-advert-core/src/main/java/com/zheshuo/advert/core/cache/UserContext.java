@@ -6,5 +6,5 @@ package com.zheshuo.advert.core.cache;
  * @description: 描述
  */
 public class UserContext {
-    private static
+//    private static
 }
