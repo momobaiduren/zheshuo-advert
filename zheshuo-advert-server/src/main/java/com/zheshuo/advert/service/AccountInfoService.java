@@ -1,9 +1,9 @@
 package com.zheshuo.advert.service;
 
+import com.zheshuo.advert.core.common.PageData;
 import com.zheshuo.advert.request.AccountInfoRequest;
 import com.zheshuo.advert.response.AccountInfoResponse;
 import com.zheshuo.advert.core.common.OutputDTO;
-import com.zheshuo.advert.core.common.PageOutputDTO;
 import java.io.Serializable;
 import java.util.List;
 
@@ -19,7 +19,7 @@ public interface AccountInfoService {
      * @param accountInfoRequest 入参条件
      * @return PageOutputDTO<AccountInfoResponse>
      */
-    PageOutputDTO<AccountInfoResponse> loadPage( AccountInfoRequest accountInfoRequest );
+   OutputDTO<PageData<AccountInfoResponse>> loadPage( AccountInfoRequest accountInfoRequest );
 
     /**
      * @param accountInfoRequest 入参条件

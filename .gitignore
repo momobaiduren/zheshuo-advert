@@ -54,3 +54,9 @@ bin-release/
 # should NOT be excluded as they contain compiler settings and other important
 # information for Eclipse / Flash Builder.
 
+zheshuo-advert-core/src/main/resources/
+zheshuo-advert-core/src/test/
+zheshuo-advert-persist/src/main/resources/
+zheshuo-advert-persist/src/test/
+zheshuo-advert-server/src/main/resources/static/
+zheshuo-advert-server/src/main/resources/templates/

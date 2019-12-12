@@ -4,7 +4,6 @@ package com.zheshuo.advert.utils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zheshuo.advert.core.common.OutputDTO;
 import com.zheshuo.advert.core.common.PageData;
-import com.zheshuo.advert.core.common.PageOutputDTO;
 import com.zheshuo.advert.core.mapper.Mapper;
 import java.util.List;
 import java.util.ArrayList;
@@ -12,12 +11,13 @@ import org.apache.commons.collections.CollectionUtils;
 
 /**
  * created by zhanglong and since  2019/12/11  11:54 上午
+ *
  * @description: 描述
  */
 public class OutputUtil {
 
-    public static <R, S> PageOutputDTO<R> conveterPage( Class<R> rClass, Page<S> page ) {
-        PageOutputDTO<R> pageOutputDTO = new PageOutputDTO<>();
+    public static <R, S> OutputDTO<PageData<R>> conveterPage( Class<R> rClass, Page<S> page ) {
+        OutputDTO<PageData<R>> pageOutputDTO = new OutputDTO<>();
         final PageData<R> pageData = new PageData<>();
         if (CollectionUtils.isNotEmpty(page.getRecords())) {
             final List<R> responseList = Mapper.map(page.getRecords(), rClass);

@@ -1,6 +1,7 @@
 package com.zheshuo.advert.service.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zheshuo.advert.core.common.PageData;
 import com.zheshuo.advert.core.easyexcel.EasyExcelExecutor;
 import com.zheshuo.advert.core.easyexcel.ExportSheetDetail;
 import com.zheshuo.advert.core.mapper.Mapper;
@@ -11,7 +12,6 @@ import com.zheshuo.advert.service.AccountInfoService;
 import com.zheshuo.advert.request.AccountInfoRequest;
 import com.zheshuo.advert.response.AccountInfoResponse;
 import com.zheshuo.advert.core.common.OutputDTO;
-import com.zheshuo.advert.core.common.PageOutputDTO;
 import com.zheshuo.advert.utils.OutputUtil;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public class AccountInfoServiceImpl implements AccountInfoService {
     private AccountInfoRepository accountInfoRepository;
 
     @Override
-    public PageOutputDTO<AccountInfoResponse> loadPage( AccountInfoRequest accountInfoRequest ) {
+    public OutputDTO<PageData<AccountInfoResponse>> loadPage( AccountInfoRequest accountInfoRequest ) {
         final Page<AccountInfo> page = accountInfoRepository
             .page(accountInfoRequest.page(), accountInfoRequest.queryWrapper());
         return OutputUtil.conveterPage(AccountInfoResponse.class, page);

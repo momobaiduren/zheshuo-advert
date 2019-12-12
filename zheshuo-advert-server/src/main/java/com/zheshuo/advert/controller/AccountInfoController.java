@@ -1,11 +1,11 @@
 package com.zheshuo.advert.controller;
 
 
+import com.zheshuo.advert.core.common.PageData;
 import com.zheshuo.advert.service.AccountInfoService;
 import com.zheshuo.advert.request.AccountInfoRequest;
 import com.zheshuo.advert.response.AccountInfoResponse;
 import com.zheshuo.advert.core.common.OutputDTO;
-import com.zheshuo.advert.core.common.PageOutputDTO;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
@@ -37,7 +37,7 @@ public class AccountInfoController {
      */
     @GetMapping("/loadPage")
     @ApiOperation("条件分页查询自定义demo表数据")
-    public PageOutputDTO<AccountInfoResponse> loadPage( @Validated @RequestBody AccountInfoRequest accountInfoRequest){
+    public OutputDTO<PageData<AccountInfoResponse>> loadPage( @Validated @RequestBody AccountInfoRequest accountInfoRequest){
        return accountInfoService.loadPage(accountInfoRequest);
     }
 
