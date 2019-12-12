@@ -48,6 +48,7 @@ public class OrderInfoRequest extends BaseRequest {
     @NotNull(message = "校验错误信息->可以使用javax对应的其他注解:正则，正负值等")
     private String userName;
         
+    @Override
     public QueryWrapper<OrderInfo> queryWrapper() {
         QueryWrapper<OrderInfo> queryWrapper = new QueryWrapper<>();
             if (Objects.nonNull(id)) {

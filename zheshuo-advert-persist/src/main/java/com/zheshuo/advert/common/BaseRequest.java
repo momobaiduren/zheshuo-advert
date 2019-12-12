@@ -1,5 +1,6 @@
 package com.zheshuo.advert.common;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.Data;
 
 /**
@@ -21,4 +22,6 @@ public abstract class BaseRequest {
     public <T> Page<T> page() {
         return new Page<>(this.current, this.size);
     }
+
+    public abstract <T> QueryWrapper<T> queryWrapper();
 }

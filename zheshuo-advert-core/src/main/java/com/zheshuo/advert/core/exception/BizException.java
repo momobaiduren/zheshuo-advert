@@ -4,17 +4,18 @@ import com.zheshuo.advert.core.enums.ErrorCodeEnum;
 
 /**
  * created by zhanglong and since  2019/12/12  9:15 上午
- *
  * @description: 描述
  */
 public class BizException extends RuntimeException {
     private int code;
+    private String msg;
 
     public BizException() {
     }
 
-    public BizException(String message) {
-        super(message);
+    public BizException(String msg) {
+        super(msg);
+        this.msg = msg;
         this.code = ErrorCodeEnum.E00000.code();
     }
 
@@ -22,12 +23,12 @@ public class BizException extends RuntimeException {
         super(cause);
     }
 
-    public BizException(String message, Throwable cause) {
-        super(message, cause);
+    public BizException(String msg, Throwable cause) {
+        super(msg, cause);
     }
 
-    public BizException(int code, String message) {
-        super(message);
+    public BizException(int code, String msg) {
+        super(msg);
         this.code = code;
     }
 
@@ -39,13 +40,5 @@ public class BizException extends RuntimeException {
     public BizException(ErrorCodeEnum codeEnum, Object... args) {
         super(String.format(codeEnum.msg(), args));
         this.code = codeEnum.code();
-    }
-
-    public int getCode() {
-        return this.code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
     }
 }

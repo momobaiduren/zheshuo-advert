@@ -28,6 +28,7 @@ public class StockInfoRequest extends BaseRequest {
     @NotNull(message = "校验错误信息->可以使用javax对应的其他注解:正则，正负值等")
     private Long productId;
         
+    @Override
     public QueryWrapper<StockInfo> queryWrapper() {
         QueryWrapper<StockInfo> queryWrapper = new QueryWrapper<>();
             if (Objects.nonNull(id)) {

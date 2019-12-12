@@ -31,7 +31,8 @@ public class AccountInfoRequest extends BaseRequest {
     @ApiModelProperty("accountStatus")
     @NotNull(message = "校验错误信息->可以使用javax对应的其他注解:正则，正负值等")
     private Integer accountStatus;
-        
+
+    @Override
     public QueryWrapper<AccountInfo> queryWrapper() {
         QueryWrapper<AccountInfo> queryWrapper = new QueryWrapper<>();
             if (Objects.nonNull(id)) {

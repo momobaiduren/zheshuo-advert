@@ -6,7 +6,9 @@ package com.zheshuo.advert.core.enums;
  * @description: 描述
  */
 public enum ErrorCodeEnum {
-
+    /**
+     * description 异常枚举
+     */
     E00000(500, "未知异常");
 
     ErrorCodeEnum( int code, String msg ) {
