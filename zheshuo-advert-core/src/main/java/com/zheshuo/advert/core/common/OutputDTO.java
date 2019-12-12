@@ -19,28 +19,28 @@ public class OutputDTO<T> extends BaseDTO {
     private T data;
 
     public OutputDTO<T> success(T data){
-        this.code = success;
-        this.msg = success;
+        this.code = SUCCESS;
+        this.msg = SUCCESS;
         this.data = data;
         return this;
     }
 
     public OutputDTO<Void> success(){
         final OutputDTO<Void> outputDTO = new OutputDTO<>();
-        outputDTO.code = success;
-        outputDTO.msg = success;
+        outputDTO.code = SUCCESS;
+        outputDTO.msg = SUCCESS;
         return outputDTO;
     }
     
     public OutputDTO<?> fail(){
-        this.code = fail;
-        this.msg = fail;
+        this.code = FAIL;
+        this.msg = FAIL;
         return this;
     }
 
     public OutputDTO<T> fail(String msg){
-        this.code = fail;
-        this.msg = fail;
+        this.code = FAIL;
+        this.msg = FAIL;
         return this;
     }
 }

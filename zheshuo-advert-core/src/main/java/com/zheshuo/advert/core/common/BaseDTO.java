@@ -5,6 +5,6 @@ package com.zheshuo.advert.core.common;
  * @description: 描述
  */
 public abstract class BaseDTO {
-    public static final String success = "success";
-    public static final String fail = "fail";
+    public static final String SUCCESS = "success";
+    public static final String FAIL = "fail";
 }
