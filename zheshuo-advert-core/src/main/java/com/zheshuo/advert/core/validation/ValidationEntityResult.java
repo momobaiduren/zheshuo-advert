@@ -22,14 +22,6 @@ public class ValidationEntityResult<T> extends ValidationResult {
         return !errorMsgs.isEmpty();
     }
 
-    @Override
-    public <E extends Exception> void throwErrorExp(Function<String, E> function) throws Exception {
-        if (this.hasError()) {
-            String errmsg = errorMsgs.entrySet().stream().map(Map.Entry::getValue).collect(Collectors.joining(";"));
-            throw function.apply(errmsg);
-        }
-    }
-
     public String errorMsgs() {
         StringBuilder errorMsg = new StringBuilder();
         errorMsgs.forEach((key, value) -> {
