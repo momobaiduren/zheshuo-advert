@@ -29,6 +29,7 @@ import io.swagger.annotations.ApiOperation;
 @Api("")
 @RequestMapping("/api/orderInfo")
 public class OrderInfoController {
+
     /**
      * 服务对象
      */
@@ -43,11 +44,12 @@ public class OrderInfoController {
      */
     @GetMapping("/loadPage")
     @ApiOperation("条件分页查询数据")
-    public OutputDTO<PageData<OrderInfoResponse>> loadPage(OrderInfoRequest orderInfoRequest) {
+    public OutputDTO<PageData<OrderInfoResponse>> loadPage( OrderInfoRequest orderInfoRequest ) {
         try {
-            ValidationManager.validation(null).validateEntity(orderInfoRequest).throwErrorExp(BizException::new);
+            ValidationManager.validation(null, BizException::new).validateEntity(orderInfoRequest);
         } catch (Exception e) {
-            throw new BizException(HttpStatus.INTERNAL_SERVER_ERROR.value(), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
+            throw new BizException(HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
         }
         return orderInfoService.loadPage(orderInfoRequest);
     }
@@ -61,11 +63,12 @@ public class OrderInfoController {
      */
     @GetMapping("/loadList")
     @ApiOperation("条件列表查询数据")
-    public OutputDTO<List<OrderInfoResponse>> loadList(OrderInfoRequest orderInfoRequest) {
+    public OutputDTO<List<OrderInfoResponse>> loadList( OrderInfoRequest orderInfoRequest ) {
         try {
-            ValidationManager.validation(null).validateEntity(orderInfoRequest).throwErrorExp(BizException::new);
+            ValidationManager.validation(null, BizException::new).validateEntity(orderInfoRequest);
         } catch (Exception e) {
-            throw new BizException(HttpStatus.INTERNAL_SERVER_ERROR.value(), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
+            throw new BizException(HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
         }
         return orderInfoService.loadList(orderInfoRequest);
     }
@@ -78,7 +81,7 @@ public class OrderInfoController {
      */
     @GetMapping("/loadDetail/{id}")
     @ApiOperation("id详情查询数据")
-    public OutputDTO<OrderInfoResponse> loadDetail(@PathVariable Serializable id) {
+    public OutputDTO<OrderInfoResponse> loadDetail( @PathVariable Serializable id ) {
         return orderInfoService.loadDetail(id);
     }
 
@@ -90,11 +93,12 @@ public class OrderInfoController {
      */
     @PostMapping("/saveOrderInfo")
     @ApiOperation("保存数据")
-    public OutputDTO<Void> saveOrderInfo(@RequestBody OrderInfoRequest orderInfoRequest) {
+    public OutputDTO<Void> saveOrderInfo( @RequestBody OrderInfoRequest orderInfoRequest ) {
         try {
-            ValidationManager.validation(null).validateEntity(orderInfoRequest).throwErrorExp(BizException::new);
+            ValidationManager.validation(null, BizException::new).validateEntity(orderInfoRequest);
         } catch (Exception e) {
-            throw new BizException(HttpStatus.INTERNAL_SERVER_ERROR.value(), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
+            throw new BizException(HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
         }
         return orderInfoService.saveOrderInfo(orderInfoRequest);
     }
@@ -107,11 +111,12 @@ public class OrderInfoController {
      */
     @PutMapping("/updateOrderInfo")
     @ApiOperation("修改数据")
-    public OutputDTO<Void> updateOrderInfo(@RequestBody OrderInfoRequest orderInfoRequest) {
+    public OutputDTO<Void> updateOrderInfo( @RequestBody OrderInfoRequest orderInfoRequest ) {
         try {
-            ValidationManager.validation(null).validateEntity(orderInfoRequest).throwErrorExp(BizException::new);
+            ValidationManager.validation(null, BizException::new).validateEntity(orderInfoRequest);
         } catch (Exception e) {
-            throw new BizException(HttpStatus.INTERNAL_SERVER_ERROR.value(), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
+            throw new BizException(HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
         }
         return orderInfoService.updateOrderInfo(orderInfoRequest);
     }
@@ -123,11 +128,12 @@ public class OrderInfoController {
      */
     @GetMapping("/exportOrderInfo")
     @ApiOperation("导出数据")
-    public void exportOrderInfo(@RequestBody OrderInfoRequest orderInfoRequest) {
+    public void exportOrderInfo( @RequestBody OrderInfoRequest orderInfoRequest ) {
         try {
-            ValidationManager.validation(null).validateEntity(orderInfoRequest).throwErrorExp(BizException::new);
+            ValidationManager.validation(null, BizException::new).validateEntity(orderInfoRequest);
         } catch (Exception e) {
-            throw new BizException(HttpStatus.INTERNAL_SERVER_ERROR.value(), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
+            throw new BizException(HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
         }
         orderInfoService.exportOrderInfo(orderInfoRequest);
     }
