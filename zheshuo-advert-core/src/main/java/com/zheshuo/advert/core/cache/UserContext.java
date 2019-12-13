@@ -6,5 +6,14 @@ package com.zheshuo.advert.core.cache;
  * @description: 描述
  */
 public class UserContext {
-//    private static
+    private static ThreadLocal<AdminLoginCache.SecurityUser> securityUserThreadLocal = new ThreadLocal<>();
+
+    public static void save(String token, AdminLoginCache adminLoginCache){
+        AdminLoginCache.SecurityUser securityUser = adminLoginCache.getUser(token);
+        securityUserThreadLocal.set(securityUser);
+    }
+
+    public static AdminLoginCache.SecurityUser getSecurityUser(){
+        return securityUserThreadLocal.get();
+    }
 }

@@ -38,7 +38,7 @@ public class AccountInfoController extends BaseController {
      */
     @GetMapping("/loadPage")
     @ApiOperation("条件分页查询自定义demo表数据")
-    public OutputDTO<PageData<AccountInfoResponse>> loadPage( @Validated @RequestBody AccountInfoRequest accountInfoRequest){
+    public OutputDTO<PageData<AccountInfoResponse>> loadPage( @Validated AccountInfoRequest accountInfoRequest){
        return accountInfoService.loadPage(accountInfoRequest);
     }
 
@@ -51,7 +51,7 @@ public class AccountInfoController extends BaseController {
      */
     @GetMapping("/loadList")
     @ApiOperation("条件列表查询自定义demo表数据")
-    public OutputDTO<List<AccountInfoResponse>> loadList(@Validated @RequestBody AccountInfoRequest accountInfoRequest) {
+    public OutputDTO<List<AccountInfoResponse>> loadList(@Validated AccountInfoRequest accountInfoRequest) {
         return accountInfoService.loadList(accountInfoRequest);
     }
 

@@ -12,16 +12,25 @@ import org.springframework.stereotype.Component;
 
 /**
  * created by zhanglong and since  2019/12/12  4:10 下午
- * @description: 描述
+ * @description: 分布式放入redis或者其他服务中
  */
 @Slf4j
 @Component
 public class AdminLoginCache {
 
-    public void register( String token) {
-        adminLoginPool.put(token, System.currentTimeMillis() + 30 * 60000);
+    private Map<String, Pair<Long,SecurityUser>> adminLoginPool = new ConcurrentHashMap<>();
+
+    public void register( String token, SecurityUser securityUser) {
+        adminLoginPool.put(token, new Pair<>(System.currentTimeMillis() + 30 * 60000, securityUser));
     }
 
+    public SecurityUser getUser( String token) {
+        Pair<Long, SecurityUser> longSecurityUserPair = adminLoginPool.get(token);
+        if (null == longSecurityUserPair){
+            return null;
+        }
+        return longSecurityUserPair.getValue();
+    }
 
     public void remove( String token ) {
         adminLoginPool.remove(token);
@@ -30,8 +39,8 @@ public class AdminLoginCache {
     public AdminLoginCache() {
         Executors.newSingleThreadExecutor().execute(() -> {
             while (true) {
-                adminLoginPool.forEach(( token, exp ) -> {
-                    if (System.currentTimeMillis() >= exp) {
+                adminLoginPool.forEach(( token, securityUserPair ) -> {
+                    if (System.currentTimeMillis() >= securityUserPair.getKey()) {
                         remove(token);
                     }
                 });
@@ -46,7 +55,7 @@ public class AdminLoginCache {
         });
     }
 
-    private Map<String, Long> adminLoginPool = new ConcurrentHashMap<>();
+
 
     @Data
     public class SecurityUser{

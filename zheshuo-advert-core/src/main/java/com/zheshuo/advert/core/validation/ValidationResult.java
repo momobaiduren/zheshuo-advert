@@ -1,6 +1,6 @@
 package com.zheshuo.advert.core.validation;
 
-import javax.xml.bind.ValidationException;
+import java.util.function.Function;
 
 /**
  * @author zhanglong
@@ -8,7 +8,11 @@ import javax.xml.bind.ValidationException;
  * @date 2019-08-3113:04
  */
 public abstract class ValidationResult {
+   boolean isThrowErrorExp = false;
 
-   public abstract void isErrorThrowExp() throws ValidationException;
+   public abstract  <E extends Exception> void throwErrorExp(Function<String, E> function) throws Exception;
 
+   public boolean isThrowErrorExp(){
+      return isThrowErrorExp;
+   }
 }

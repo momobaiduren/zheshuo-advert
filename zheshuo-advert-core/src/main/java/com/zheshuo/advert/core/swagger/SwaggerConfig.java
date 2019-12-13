@@ -63,12 +63,7 @@ public class SwaggerConfig {
     }
 
     private Predicate<RequestHandler> select(Class<? extends Annotation> annotation) {
-        return new Predicate<RequestHandler>() {
-            @Override
-            public boolean apply(RequestHandler input) {
-                return input.findControllerAnnotation(annotation).isPresent();
-            }
-        };
+        return input -> input.findControllerAnnotation(annotation).isPresent();
     }
 
     @Bean
