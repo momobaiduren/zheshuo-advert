@@ -1,6 +1,5 @@
 package com.zheshuo.advert.core.validation;
 
-import java.util.function.Function;
 
 /**
  * @author zhanglong
