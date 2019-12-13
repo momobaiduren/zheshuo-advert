@@ -11,10 +11,10 @@ import java.util.function.Function;
 public class ValidationManager {
     /**
      * create by ZhangLong on 2019-08-31
-     * @param consumer 如果是null的话 不额外处理校验结果，如果需要额外处理校验结果需要 {@Link Consumer}
+     * @param validateResultConsumer 如果是null的话 不额外处理校验结果，如果需要额外处理校验结果需要 {@Link Consumer}
      */
-    public static ValidationExecutor validation(Consumer<ValidationResult> consumer, Function<String, ? extends Exception> expFunction){
-        return new ValidationExecutor(consumer, expFunction);
+    public static ValidationExecutor validation(Consumer<ValidationResult> validateResultConsumer, Function<String, ? extends Exception> dataExpFunction){
+        return new ValidationExecutor(validateResultConsumer, dataExpFunction);
     }
 
 }

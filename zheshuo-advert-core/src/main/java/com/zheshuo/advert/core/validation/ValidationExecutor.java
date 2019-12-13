@@ -5,7 +5,6 @@ import static java.util.stream.Collectors.joining;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -23,14 +22,14 @@ import javax.validation.groups.Default;
  */
 public class ValidationExecutor {
 
-    private Consumer<ValidationResult> consumer;
+    private Consumer<ValidationResult> validateResultConsumer;
 
-    private Function<String, ? extends Exception> expFunction;
+    private Function<String, ? extends Exception> dataExpFunction;
 
-    ValidationExecutor( Consumer<ValidationResult> consumer,
-        Function<String, ? extends Exception> expFunction ) {
-        this.consumer = consumer;
-        this.expFunction = expFunction;
+    ValidationExecutor( Consumer<ValidationResult> validateResultConsumer,
+        Function<String, ? extends Exception> dataExpFunction ) {
+        this.validateResultConsumer = validateResultConsumer;
+        this.dataExpFunction = dataExpFunction;
     }
 
     public <T> ValidationListResult<T> validateList( List<T> dataList ) throws Exception {
@@ -59,16 +58,16 @@ public class ValidationExecutor {
                 if (errorMsg.isEmpty()) {
                     result.getSuccessData().add(t);
                 } else {
-                    if (null != expFunction) {
+                    if (null != dataExpFunction) {
                         String errMsg = String.join(";", errorMsg.values());
-                        throw expFunction.apply(errMsg);
+                        throw dataExpFunction.apply(errMsg);
                     }
                     result.getErrorData().put(t, errorMsg);
                 }
             }
         }
-        if (Objects.nonNull(consumer)) {
-            consumer.accept(result);
+        if (Objects.nonNull(validateResultConsumer)) {
+            validateResultConsumer.accept(result);
         }
         return result;
     }
@@ -101,12 +100,12 @@ public class ValidationExecutor {
                             constraintViolation.getMessage());
                 }
             }));
-        if (null != expFunction) {
+        if (null != dataExpFunction) {
             String errMsg = String.join(";", validationEntityResult.getErrorMsgs().values());
-            throw expFunction.apply(errMsg);
+            throw dataExpFunction.apply(errMsg);
         }
-        if (Objects.nonNull(consumer)) {
-            consumer.accept(validationEntityResult);
+        if (Objects.nonNull(validateResultConsumer)) {
+            validateResultConsumer.accept(validationEntityResult);
         }
         return validationEntityResult;
     }
