@@ -2,6 +2,7 @@ package com.zheshuo.advert.core.utils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.UUID;
 
 /**
  * created by zhanglong and since  2019/11/26  5:32 下午
@@ -10,13 +11,12 @@ import javax.servlet.http.HttpServletResponse;
  */
 public final class WebUtils {
 
-    private static final ThreadLocal<WebContext> threadContext = new ThreadLocal();
+    private static final ThreadLocal<WebContext> threadContext = new ThreadLocal<>();
 
     private WebUtils() {}
 
     public static WebContext getContext() {
-        WebContext webContext = threadContext.get();
-        return webContext;
+        return threadContext.get();
     }
 
     public static HttpServletRequest getRequest() {

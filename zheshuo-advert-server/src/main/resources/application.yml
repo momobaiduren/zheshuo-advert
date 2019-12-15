@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://www.zhanglong.org.cn:3306/jta-db
+    url: jdbc:mysql://www.zhanglong.org.cn:3306/zheshuo-advert
     username: root
     password: zl12345
   servlet:

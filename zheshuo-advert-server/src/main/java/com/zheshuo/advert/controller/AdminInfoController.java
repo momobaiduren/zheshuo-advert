@@ -57,17 +57,6 @@ public class AdminInfoController extends BaseController{
         return adminInfoService.loadList(adminInfoRequest);
     }
 
-    /**
-     * 查询详情
-     * @param adminInfoLoginRequest 主键
-     * @return 单条数据
-     */
-    @GetMapping("/login")
-    @ApiOperation("id详情查询用户数据")
-    public OutputDTO<Void> login(@Validated @RequestBody AdminInfoLoginRequest adminInfoLoginRequest) {
-        return adminInfoService.login(adminInfoLoginRequest);
-    }
-
     @GetMapping("/loginOut/")
     @ApiOperation("退出登陆")
     public OutputDTO<Void> loginOut() {

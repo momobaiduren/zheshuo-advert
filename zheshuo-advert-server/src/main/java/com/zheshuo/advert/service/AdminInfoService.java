@@ -52,4 +52,6 @@ public interface AdminInfoService{
     OutputDTO<Void> login( AdminInfoLoginRequest adminInfoLoginRequest );
 
     OutputDTO<Void> loginOut();
+
+    OutputDTO<Void> register(AdminInfoRequest adminInfoRequest);
 }
