@@ -82,21 +82,21 @@ public class ValidationExecutor {
             .validate(data, Default.class);
         Optional.ofNullable(constraintViolationSet)
             .ifPresent(constraintViolations -> constraintViolations.forEach(constraintViolation -> {
-                if (validationEntityResult.getErrorMsgs()
+                if (validationEntityResult.getErrorMsg()
                     .containsKey(constraintViolation.getPropertyPath().toString())) {
-                    validationEntityResult.getErrorMsgs()
+                    validationEntityResult.getErrorMsg()
                         .put(constraintViolation.getPropertyPath().toString(),
-                            validationEntityResult.getErrorMsgs()
+                            validationEntityResult.getErrorMsg()
                                 .get(constraintViolation.getPropertyPath().toString()) + ";"
                                 + constraintViolation.getMessage());
                 } else {
-                    validationEntityResult.getErrorMsgs()
+                    validationEntityResult.getErrorMsg()
                         .put(constraintViolation.getPropertyPath().toString(),
                             constraintViolation.getMessage());
                 }
             }));
         if (null != dataExpFunction) {
-            String errMsg = String.join(";", validationEntityResult.getErrorMsgs().values());
+            String errMsg = String.join(";", validationEntityResult.getErrorMsg().values());
             throw dataExpFunction.apply(errMsg);
         }
         if (Objects.nonNull(validateResultConsumer)) {

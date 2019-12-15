@@ -30,13 +30,18 @@ public class ExcelEventListener<M extends BaseReadModel> extends AnalysisEventLi
     @Override
     public void invoke(M model, AnalysisContext analysisContext) {
         //检查每一个需要校验的数据
-        ValidationEntityResult<M> validationEntityResult = ValidationManager
-                .validation(null).validateEntity(model);
+        ValidationEntityResult<M> validationEntityResult = null;
+        try {
+            validationEntityResult = ValidationManager
+                    .validation(null,null).validateEntity(model);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
         Integer sheetNo = analysisContext.readSheetHolder().getSheetNo();
         if (!validationEntityResult.hasError()) {
             excleData.dataAdd(sheetNo, model);
         } else {
-            model.setErrorMsg(String.format("检查错误：%s", validationEntityResult.errorMsgs()));
+            model.setErrorMsg(String.format("检查错误：%s", validationEntityResult.errorMsg()));
             excleData.errorModelAdd(sheetNo, model);
         }
         System.out.println(model);
