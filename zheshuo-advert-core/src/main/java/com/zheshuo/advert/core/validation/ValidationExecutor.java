@@ -1,19 +1,14 @@
 package com.zheshuo.advert.core.validation;
 
-import static java.util.stream.Collectors.joining;
+import org.apache.commons.collections4.CollectionUtils;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
-import java.util.function.Consumer;
-import java.util.function.Function;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.groups.Default;
+import java.util.*;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 /**
  * @author zhanglong
@@ -45,7 +40,7 @@ public class ValidationExecutor {
         Validator finalValidator = validator;
         for (T t : dataList) {
             Set<ConstraintViolation<T>> set = finalValidator.validate(t, Default.class);
-            if (set != null && set.size() != 0) {
+            if (CollectionUtils.isNotEmpty(set)) {
                 Map<String, String> errorMsg = new HashMap<>();
                 for (ConstraintViolation<T> cv : set) {
                     if (errorMsg.containsKey(cv.getPropertyPath().toString())) {
