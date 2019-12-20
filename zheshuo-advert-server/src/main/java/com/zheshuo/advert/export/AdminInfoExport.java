@@ -1,7 +1,6 @@
 package com.zheshuo.advert.export;
 
 import com.alibaba.excel.annotation.ExcelProperty;
-import com.zheshuo.advert.core.easyexcel.ExcelModel;
 import lombok.Data;
 
 /**
@@ -11,7 +10,7 @@ import lombok.Data;
  */
 
 @Data
-public class AdminInfoExport implements ExcelModel{
+public class AdminInfoExport {
     /**
      *主键
      */

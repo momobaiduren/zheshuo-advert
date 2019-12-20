@@ -3,7 +3,6 @@ package com.zheshuo.advert.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.zheshuo.advert.core.easyexcel.ExcelModel;
 
 import lombok.Data;
 /**
@@ -13,7 +12,7 @@ import lombok.Data;
  */
 @Data
 @TableName("admin_info")
-public class AdminInfo implements ExcelModel {
+public class AdminInfo {
     /**
      *主键
      */
