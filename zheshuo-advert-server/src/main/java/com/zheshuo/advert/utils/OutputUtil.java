@@ -24,28 +24,32 @@ public class OutputUtil {
             pageData.setList(responseList);
             pageData.setSize(page.getSize());
             pageData.setTotal(page.getTotal());
+            pageOutputDTO.success(pageData);
+        }else {
+            pageOutputDTO.fail();
         }
-        pageOutputDTO.success(pageData);
         return pageOutputDTO;
     }
 
     public static <R, S> OutputDTO<R> conveter( Class<R> rClass, S t ) {
         OutputDTO<R> outputDTO = new OutputDTO<>();
-        R result = null;
         if (null != t) {
-            result = Mapper.map(t, rClass);
+            R result = Mapper.map(t, rClass);
+            outputDTO.success(result);
+        }else {
+            outputDTO.fail();
         }
-        outputDTO.success(result);
         return outputDTO;
     }
 
     public static <R, S> OutputDTO<List<R>> conveterList( Class<R> rClass, List<S> sList ) {
         OutputDTO<List<R>> outputDTO = new OutputDTO<>();
-        List<R> rList = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(sList)) {
-            rList = Mapper.map(sList, rClass);
+            List<R> rList = Mapper.map(sList, rClass);
+            outputDTO.success(rList);
+        }else {
+            outputDTO.fail();
         }
-        outputDTO.success(rList);
         return outputDTO;
     }
 

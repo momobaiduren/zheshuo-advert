@@ -20,7 +20,6 @@ public class AdminInfoRequest extends BaseRequest {
       * 主键
       */
     @ApiModelProperty("主键")
-    @NotNull(message = "校验错误信息->可以使用javax对应的其他注解:正则，正负值等")
     private Long id;
         
     /**
