@@ -27,6 +27,7 @@ public class ExcelEventListener<M extends AbstractExcelModel> extends AnalysisEv
         this.runnable = runnable;
     }
 
+
     @Override
     public void invoke(M model, AnalysisContext analysisContext) {
         //检查每一个需要校验的数据
