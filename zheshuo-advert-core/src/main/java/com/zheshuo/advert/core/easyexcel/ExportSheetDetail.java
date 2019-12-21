@@ -14,9 +14,23 @@ import org.apache.commons.lang3.StringUtils;
  * @version V1.0
  */
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class ExportSheetDetail<Export extends AbstractExcelModel, Source> {
+
+    public ExportSheetDetail(){
+        validatedAndInit();
+    }
+
+    public ExportSheetDetail(
+        @NotNull(message = "model类类型不能为空") Class<Export> mClass,
+        @NotEmpty(message = "导出数据不能为空") List<Source> data, String sheetName,
+        Integer headRowNumber, Integer sheetNo ) {
+        this.mClass = mClass;
+        this.data = data;
+        this.sheetName = sheetName;
+        this.headRowNumber = headRowNumber;
+        this.sheetNo = sheetNo;
+        validatedAndInit();
+    }
 
     @NotNull(message = "model类类型不能为空")
     private Class<Export> mClass;
@@ -34,10 +48,6 @@ public class ExportSheetDetail<Export extends AbstractExcelModel, Source> {
     private Integer sheetNo = 0;
 
     public void validatedAndInit() {
-        Objects.requireNonNull(mClass, "class could not be null");
-
-        Objects.requireNonNull(data, "data could not be null");
-
         if (Objects.isNull(headRowNumber) || headRowNumber < 1) {
             headRowNumber = 1;
         }
