@@ -9,7 +9,6 @@ import javax.validation.groups.Default;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
-import org.apache.poi.ss.formula.functions.T;
 
 /**
  * @author zhanglong
@@ -62,7 +61,7 @@ public class ValidationExecutor {
     }
 
 
-    public <T> ValidationEntityResultConsumer<T> validateEntity( T data ) throws Exception {
+    public <Data> ValidationEntityResultConsumer<Data> validateEntity( Data data ) throws Exception {
         return validateEntity(data, null);
     }
 
@@ -96,7 +95,9 @@ public class ValidationExecutor {
         }
         return new ValidationEntityResultConsumer<>(validationEntityResult);
     }
-
+    /**
+     * description 如果是null的话 不额外处理校验结果，如果需要额外处理校验结果需要 {@link Consumer}
+     */
     public static class ValidationEntityResultConsumer<T> {
 
         private ValidationEntityResult<T> validationEntityResult;
@@ -112,7 +113,9 @@ public class ValidationExecutor {
             }
         }
     }
-
+    /**
+     * description 如果是null的话 不额外处理校验结果，如果需要额外处理校验结果需要 {@link Consumer}
+     */
     public static class ValidationListResultConsumer<T> {
 
         private ValidationListResult<T> validationListResult;
