@@ -9,6 +9,7 @@ import javax.validation.groups.Default;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import org.apache.poi.ss.formula.functions.T;
 
 /**
  * @author zhanglong
@@ -17,21 +18,17 @@ import java.util.function.Function;
  */
 public class ValidationExecutor {
 
-    private Consumer<ValidationResult> validateResultConsumer;
-
     private Function<String, ? extends Exception> dataExpFunction;
 
-    ValidationExecutor( Consumer<ValidationResult> validateResultConsumer,
-        Function<String, ? extends Exception> dataExpFunction ) {
-        this.validateResultConsumer = validateResultConsumer;
+    ValidationExecutor( Function<String, ? extends Exception> dataExpFunction ) {
         this.dataExpFunction = dataExpFunction;
     }
 
-    public <T> ValidationListResult<T> validateList( List<T> dataList ) throws Exception {
+    public <T> ValidationListResultConsumer<T> validateList( List<T> dataList ) throws Exception {
         return validateList(dataList, null);
     }
 
-    public <T> ValidationListResult<T> validateList( List<T> dataList, Validator validator )
+    public <T> ValidationListResultConsumer<T> validateList( List<T> dataList, Validator validator )
         throws Exception {
         if (Objects.isNull(validator)) {
             validator = Validation.buildDefaultValidatorFactory().getValidator();
@@ -61,17 +58,15 @@ public class ValidationExecutor {
                 }
             }
         }
-        if (Objects.nonNull(validateResultConsumer)) {
-            validateResultConsumer.accept(result);
-        }
-        return result;
+        return new ValidationListResultConsumer<>(result);
     }
 
-    public <T> ValidationEntityResult<T> validateEntity( T data ) throws Exception {
+
+    public <T> ValidationEntityResultConsumer<T> validateEntity( T data ) throws Exception {
         return validateEntity(data, null);
     }
 
-    public <T> ValidationEntityResult<T> validateEntity( T data, Validator validator )
+    public <T> ValidationEntityResultConsumer<T> validateEntity( T data, Validator validator )
         throws Exception {
         if (Objects.isNull(validator)) {
             validator = Validation.buildDefaultValidatorFactory().getValidator();
@@ -99,10 +94,38 @@ public class ValidationExecutor {
             String errMsg = String.join(";", validationEntityResult.getErrorMsg().values());
             throw dataExpFunction.apply(errMsg);
         }
-        if (Objects.nonNull(validateResultConsumer)) {
-            validateResultConsumer.accept(validationEntityResult);
+        return new ValidationEntityResultConsumer<>(validationEntityResult);
+    }
+
+    public static class ValidationEntityResultConsumer<T> {
+
+        private ValidationEntityResult<T> validationEntityResult;
+
+        ValidationEntityResultConsumer( ValidationEntityResult<T> validationEntityResult ) {
+            this.validationEntityResult = validationEntityResult;
         }
-        return validationEntityResult;
+
+        public void consumer( Consumer<ValidationEntityResult<T>> validateResultConsumer ) {
+            if (Objects.nonNull(validateResultConsumer) && Objects
+                .nonNull(validationEntityResult)) {
+                validateResultConsumer.accept(validationEntityResult);
+            }
+        }
+    }
+
+    public static class ValidationListResultConsumer<T> {
+
+        private ValidationListResult<T> validationListResult;
+
+        ValidationListResultConsumer( ValidationListResult<T> validationListResult ) {
+            this.validationListResult = validationListResult;
+        }
+
+        public void consumer( Consumer<ValidationListResult<T>> validateResultConsumer ) {
+            if (Objects.nonNull(validateResultConsumer) && Objects.nonNull(validationListResult)) {
+                validateResultConsumer.accept(validationListResult);
+            }
+        }
     }
 
 }
