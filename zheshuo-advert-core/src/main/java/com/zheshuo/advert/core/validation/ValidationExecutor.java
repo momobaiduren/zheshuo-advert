@@ -37,7 +37,7 @@ public class ValidationExecutor {
         for (T t : dataList) {
             Set<ConstraintViolation<T>> set = finalValidator.validate(t, Default.class);
             if (CollectionUtils.isNotEmpty(set)) {
-                Map<String, String> errorMsg = new HashMap<>();
+                Map<String, String> errorMsg = new HashMap<>(dataList.size());
                 for (ConstraintViolation<T> cv : set) {
                     if (errorMsg.containsKey(cv.getPropertyPath().toString())) {
                         errorMsg.put(cv.getPropertyPath().toString(),

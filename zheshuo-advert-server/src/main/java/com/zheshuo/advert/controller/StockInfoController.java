@@ -1,6 +1,7 @@
 package com.zheshuo.advert.controller;
 
 
+import com.zheshuo.advert.core.validation.ValidationManager;
 import com.zheshuo.advert.service.StockInfoService;
 import com.zheshuo.advert.request.StockInfoRequest;
 import com.zheshuo.advert.response.StockInfoResponse;
@@ -37,7 +38,9 @@ public class StockInfoController {
      */
     @GetMapping("/loadPage")
     @ApiOperation("条件分页查询数据")
-    public OutputDTO<PageData<StockInfoResponse>> loadPage( @Validated @RequestBody StockInfoRequest stockInfoRequest){
+    public OutputDTO<PageData<StockInfoResponse>> loadPage( @Validated @RequestBody StockInfoRequest stockInfoRequest)
+        throws Exception {
+        ValidationManager.validation(null).validateEntity(stockInfoRequest).consumer(validationEntityResult -> validationEntityResult.errorMsg());
        return stockInfoService.loadPage(stockInfoRequest);
     }
 
