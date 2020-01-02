@@ -46,7 +46,7 @@ public class OrderInfoController {
     @ApiOperation("条件分页查询数据")
     public OutputDTO<PageData<OrderInfoResponse>> loadPage( OrderInfoRequest orderInfoRequest ) {
         try {
-            ValidationManager.validation(null, BizException::new).validateEntity(orderInfoRequest);
+            ValidationManager.validation(BizException::new).validateEntity(orderInfoRequest);
         } catch (Exception e) {
             throw new BizException(HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
@@ -65,7 +65,7 @@ public class OrderInfoController {
     @ApiOperation("条件列表查询数据")
     public OutputDTO<List<OrderInfoResponse>> loadList( OrderInfoRequest orderInfoRequest ) {
         try {
-            ValidationManager.validation(null, BizException::new).validateEntity(orderInfoRequest);
+            ValidationManager.validation(BizException::new).validateEntity(orderInfoRequest);
         } catch (Exception e) {
             throw new BizException(HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
@@ -95,7 +95,7 @@ public class OrderInfoController {
     @ApiOperation("保存数据")
     public OutputDTO<Void> saveOrderInfo( @RequestBody OrderInfoRequest orderInfoRequest ) {
         try {
-            ValidationManager.validation(null, BizException::new).validateEntity(orderInfoRequest);
+            ValidationManager.validation(BizException::new).validateEntity(orderInfoRequest);
         } catch (Exception e) {
             throw new BizException(HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
@@ -113,7 +113,7 @@ public class OrderInfoController {
     @ApiOperation("修改数据")
     public OutputDTO<Void> updateOrderInfo( @RequestBody OrderInfoRequest orderInfoRequest ) {
         try {
-            ValidationManager.validation(null, BizException::new).validateEntity(orderInfoRequest);
+            ValidationManager.validation( BizException::new).validateEntity(orderInfoRequest);
         } catch (Exception e) {
             throw new BizException(HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
@@ -130,7 +130,7 @@ public class OrderInfoController {
     @ApiOperation("导出数据")
     public void exportOrderInfo( @RequestBody OrderInfoRequest orderInfoRequest ) {
         try {
-            ValidationManager.validation(null, BizException::new).validateEntity(orderInfoRequest);
+            ValidationManager.validation(BizException::new).validateEntity(orderInfoRequest);
         } catch (Exception e) {
             throw new BizException(HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
