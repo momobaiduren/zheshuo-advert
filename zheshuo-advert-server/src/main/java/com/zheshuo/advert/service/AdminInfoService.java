@@ -29,7 +29,7 @@ public interface AdminInfoService{
      * @param id  主键
      * @return  OutputDTO<AdminInfoResponse>
      */
-    OutputDTO<AdminInfoResponse> loadDetail( Serializable id );
+    OutputDTO<AdminInfoResponse> loadDetail( Long id );
     
     /**
      * @param adminInfoRequest  入参条件

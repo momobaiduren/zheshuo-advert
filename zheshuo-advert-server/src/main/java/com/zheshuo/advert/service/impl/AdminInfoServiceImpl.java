@@ -15,23 +15,23 @@ import com.zheshuo.advert.request.AdminInfoRequest;
 import com.zheshuo.advert.response.AdminInfoResponse;
 import com.zheshuo.advert.service.AdminInfoService;
 import com.zheshuo.advert.utils.OutputUtil;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.annotation.Resource;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.annotation.Resource;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 /**
  * 用户(AdminInfo)
+ *
  * @author ZhangLong
  * @since 2019-12-12 15:55:43
  */
 @Service
 public class AdminInfoServiceImpl implements AdminInfoService {
+
     @Resource
     private AdminInfoRepository adminInfoRepository;
 
@@ -51,7 +51,7 @@ public class AdminInfoServiceImpl implements AdminInfoService {
     }
 
     @Override
-    public OutputDTO<AdminInfoResponse> loadDetail( Serializable id ) {
+    public OutputDTO<AdminInfoResponse> loadDetail( Long id ) {
         final AdminInfo adminInfo = adminInfoRepository.getById(id);
         return OutputUtil.conveter(AdminInfoResponse.class, adminInfo);
     }
@@ -70,7 +70,7 @@ public class AdminInfoServiceImpl implements AdminInfoService {
             .update(Mapper.map(adminInfoRequest, AdminInfo.class), adminInfoRequest.queryWrapper());
         return new OutputDTO<>().success();
     }
-    
+
     @Override
     public void exportAdminInfo( AdminInfoRequest adminInfoRequest ) {
         final List<AdminInfo> list = adminInfoRepository
@@ -84,9 +84,10 @@ public class AdminInfoServiceImpl implements AdminInfoService {
 
     @Override
     public OutputDTO<Void> login( AdminInfoLoginRequest adminInfoLoginRequest ) {
-        final AdminInfo adminInfo = adminInfoRepository.getOne(adminInfoLoginRequest.queryWrapper());
+        final AdminInfo adminInfo = adminInfoRepository
+            .getOne(adminInfoLoginRequest.queryWrapper());
         OutputDTO<Void> out = new OutputDTO<>();
-        if(Objects.nonNull(adminInfo)) {
+        if (Objects.nonNull(adminInfo)) {
             UserContext.register(adminInfo);
             return out.success();
         }
@@ -101,7 +102,7 @@ public class AdminInfoServiceImpl implements AdminInfoService {
     }
 
     @Override
-    public OutputDTO<Void> register(AdminInfoRequest adminInfoRequest) {
+    public OutputDTO<Void> register( AdminInfoRequest adminInfoRequest ) {
         adminInfoRepository.save(Mapper.map(adminInfoRequest, AdminInfo.class));
         return new OutputDTO<>().success();
     }

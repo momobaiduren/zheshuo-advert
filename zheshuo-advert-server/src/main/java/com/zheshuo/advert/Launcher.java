@@ -13,9 +13,9 @@ public class Launcher {
     public static void main(String[] args) {
         SpringApplication.run(Launcher.class, args);
 //        添加权限菜单
-        Executors.newFixedThreadPool(1).execute(()->{
-
-        });
+//        Executors.newFixedThreadPool(1).execute(()->{
+//
+//        });
     }
 
 }

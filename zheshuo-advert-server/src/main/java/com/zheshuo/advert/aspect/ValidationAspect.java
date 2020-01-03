@@ -35,12 +35,7 @@ public class ValidationAspect {
         final Object[] args = joinPoint.getArgs();
         if (null != args && args.length > 0) {
             for (int i = 0; i < args.length; i++) {
-                try {
-                    ValidationManager.validation(BizException::new).validateEntity(args.length);
-                } catch (Exception e) {
-                    log.error("校验器异常:{}", e.getMessage());
-                    throw new IllegalArgumentException("校验器失败异常");
-                }
+                ValidationManager.validation(BizException::new).validateEntity(args[i]);
             }
 
         }

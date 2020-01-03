@@ -11,7 +11,7 @@ public class ValidationManager {
     /**
      * create by ZhangLong on 2019-08-31
      */
-    public static ValidationExecutor validation( Function<String, ? extends Exception> dataExpFunction){
+    public static ValidationExecutor validation( Function<String, ? extends RuntimeException> dataExpFunction){
         return new ValidationExecutor(dataExpFunction);
     }
 

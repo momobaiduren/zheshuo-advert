@@ -17,18 +17,17 @@ import java.util.function.Function;
  */
 public class ValidationExecutor {
 
-    private Function<String, ? extends Exception> dataExpFunction;
+    private Function<String, ? extends RuntimeException> dataExpFunction;
 
-    ValidationExecutor( Function<String, ? extends Exception> dataExpFunction ) {
+    ValidationExecutor( Function<String, ? extends RuntimeException> dataExpFunction ) {
         this.dataExpFunction = dataExpFunction;
     }
 
-    public <T> ValidationListResultConsumer<T> validateList( List<T> dataList ) throws Exception {
+    public <T> ValidationListResultConsumer<T> validateList( List<T> dataList ) {
         return validateList(dataList, null);
     }
 
-    public <T> ValidationListResultConsumer<T> validateList( List<T> dataList, Validator validator )
-        throws Exception {
+    public <T> ValidationListResultConsumer<T> validateList( List<T> dataList, Validator validator ) {
         if (Objects.isNull(validator)) {
             validator = Validation.buildDefaultValidatorFactory().getValidator();
         }
@@ -61,12 +60,11 @@ public class ValidationExecutor {
     }
 
 
-    public <Data> ValidationEntityResultConsumer<Data> validateEntity( Data data ) throws Exception {
+    public <T> ValidationEntityResultConsumer<T> validateEntity( T data ) {
         return validateEntity(data, null);
     }
 
-    public <T> ValidationEntityResultConsumer<T> validateEntity( T data, Validator validator )
-        throws Exception {
+    public <T> ValidationEntityResultConsumer<T> validateEntity( T data, Validator validator ) {
         if (Objects.isNull(validator)) {
             validator = Validation.buildDefaultValidatorFactory().getValidator();
         }
@@ -95,6 +93,7 @@ public class ValidationExecutor {
         }
         return new ValidationEntityResultConsumer<>(validationEntityResult);
     }
+
     /**
      * description 如果是null的话 不额外处理校验结果，如果需要额外处理校验结果需要 {@link Consumer}
      */
@@ -113,6 +112,7 @@ public class ValidationExecutor {
             }
         }
     }
+
     /**
      * description 如果是null的话 不额外处理校验结果，如果需要额外处理校验结果需要 {@link Consumer}
      */

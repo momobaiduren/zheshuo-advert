@@ -22,44 +22,48 @@ public class ExcelEventListener<M extends AbstractExcelModel> extends AnalysisEv
 
     private Runnable runnable;
 
-    ExcelEventListener(ExcleData<M> excleData, Runnable runnable) {
+    ExcelEventListener( ExcleData<M> excleData, Runnable runnable ) {
         this.excleData = excleData;
         this.runnable = runnable;
     }
 
 
     @Override
-    public void invoke(M model, AnalysisContext analysisContext) {
+    public void invoke( M model, AnalysisContext analysisContext ) {
         //检查每一个需要校验的数据
         try {
-            ValidationEntityResult<M> validationEntityResult = ValidationManager
-                    .validation(null, null).validateEntity(model);
-            Integer sheetNo = analysisContext.readSheetHolder().getSheetNo();
-            if (!validationEntityResult.hasError()) {
-                excleData.dataAdd(sheetNo, model);
-            } else {
-                model.setErrorMsg(String.format("检查错误：%s", validationEntityResult.errorMsgs()));
-                excleData.errorModelAdd(sheetNo, model);
-            }
+            ValidationManager
+                .validation(null).validateEntity(model)
+                .consumer(validationEntityResult -> {
+                    Integer sheetNo = analysisContext.readSheetHolder().getSheetNo();
+                    if (!validationEntityResult.hasError()) {
+                        excleData.dataAdd(sheetNo, model);
+                    } else {
+                        model.setErrorMsg(
+                            String.format("检查错误：%s", validationEntityResult.errorMsg()));
+                        excleData.errorModelAdd(sheetNo, model);
+                    }
+                });
         } catch (Exception e) {
             log.error(e.getMessage());
         }
     }
 
     @Override
-    public void onException(Exception exception, AnalysisContext context) {
+    public void onException( Exception exception, AnalysisContext context ) {
         log.error("解析失败，但是继续解析下一行:{}", exception.getMessage());
         // 如果是某一个单元格的转换异常 能获取到具体行号
         // 如果要获取头的信息 配合invokeHeadMap使用
         if (exception instanceof ExcelDataConvertException) {
             ExcelDataConvertException excelDataConvertException = (ExcelDataConvertException) exception;
             log.error("第{}行，第{}列解析异常，数据为:{}", excelDataConvertException.getRowIndex(),
-                    excelDataConvertException.getColumnIndex(), excelDataConvertException.getCellData());
+                excelDataConvertException.getColumnIndex(),
+                excelDataConvertException.getCellData());
         }
     }
 
     @Override
-    public void doAfterAllAnalysed( AnalysisContext analysisContext) {
+    public void doAfterAllAnalysed( AnalysisContext analysisContext ) {
         if (Objects.nonNull(runnable)) {
             runnable.run();
         }

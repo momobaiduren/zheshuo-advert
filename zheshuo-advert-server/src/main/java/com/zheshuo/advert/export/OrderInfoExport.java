@@ -1,6 +1,7 @@
 package com.zheshuo.advert.export;
 
 import com.alibaba.excel.annotation.ExcelProperty;
+import com.zheshuo.advert.core.easyexcel.AbstractExcelModel;
 import lombok.Data;
 
 /**
@@ -10,7 +11,7 @@ import lombok.Data;
  */
 
 @Data
-public class OrderInfoExport {
+public class OrderInfoExport extends AbstractExcelModel {
     @ExcelProperty("id")
     private Long id;
     
